@@ -3,10 +3,8 @@
     <template #title>Autoverzekering vergelijken</template>
 
     <template #content>
-        <p>
-            Replace me for input fields
-        </p>
 
+          <license-plate-input/>
         <!-- LicensePlate -->
 
         <!-- Zipcode -->
@@ -31,10 +29,12 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import SimpleCard from './simpleCard.vue';
+import LicensePlateInput from '@/components/inputs/licensePlateInput.vue';
 
 @Options({
   components: {
     SimpleCard,
+    LicensePlateInput,
   },
 })
 export default class CarForm extends Vue {
