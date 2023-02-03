@@ -4,7 +4,9 @@
 
     <template #content>
 
-          <license-plate-input/>
+          <license-plate-input @brandAndYear="getCarInfo"/>
+          <zip-code-input @zip-code="getCarInfo"/>
+
         <!-- LicensePlate -->
 
         <!-- Zipcode -->
@@ -28,18 +30,29 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import SimpleCard from './simpleCard.vue';
 import LicensePlateInput from '@/components/inputs/licensePlateInput.vue';
+import SimpleCard from './simpleCard.vue';
+import ZipCodeInput from '@/components/inputs/zipCodeInput.vue';
+
 
 @Options({
   components: {
+    ZipCodeInput,
     SimpleCard,
     LicensePlateInput,
   },
 })
 export default class CarForm extends Vue {
+  formArray = [] as string[]
+
   onSubmit(): void {
     console.log('Button is clicked');
+  }
+
+  getCarInfo(...args: string[]): void {
+    this.formArray = this.formArray.concat(args);
+    const some = this.formArray.join('&');
+    console.log(some);
   }
 }
 </script>

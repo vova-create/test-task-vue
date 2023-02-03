@@ -1,7 +1,8 @@
 <template>
   <div>
     <form @submit.prevent="submit">
-      <input v-model="licensePlate" type="text" />
+      <label for="licencePlate">Enter your licence Plate</label>
+      <input id="licencePlate" v-model="licensePlate" type="text" />
       <button type="submit">get vehicle  information from the license plate</button>
     </form>
     <p v-if="errorMessage">{{ errorMessage }}</p>
@@ -14,6 +15,7 @@
 
 <script lang="ts" >
 import { Options, Vue } from 'vue-class-component';
+import axios from 'axios';
 
 interface VehicleData {
   merk: string;
@@ -34,19 +36,17 @@ export default class LicensePlateInput extends Vue {
 
   async submit() {
     try {
-      const response = await fetch(`https://opendata.rdw.nl/resource/m9d7-ebf2.json?kenteken=${this.licensePlate}`);
-      const data = (await response.json()) as VehicleData[];
-
-      if (!data.length) {
+      console.log(this.licensePlate);
+      const res = await axios.get(`https://opendata.rdw.nl/resource/m9d7-ebf2.json?kenteken=${this.licensePlate}`);
+      const data = res.data as VehicleData[];
+      if (this.licensePlate !== this.licensePlate.replace(/-/g, '').toUpperCase()) {
         this.errorMessage = 'Invalid license plate.';
         return;
       }
-
       this.brand = data[0].merk;
       this.manufacturingYear = data[0].datum_eerste_toelating;
+      this.$emit('brandAndYear', this.brand, this.manufacturingYear);
       this.errorMessage = '';
-      console.log(this.manufacturingYear);
-      console.log(this.brand);
     } catch (error) {
       this.errorMessage = 'An error occurred while retrieving the information.';
     }
