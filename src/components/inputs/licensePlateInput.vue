@@ -36,7 +36,6 @@ export default class LicensePlateInput extends Vue {
 
   async submit() {
     try {
-      console.log(this.licensePlate);
       const res = await axios.get(`https://opendata.rdw.nl/resource/m9d7-ebf2.json?kenteken=${this.licensePlate}`);
       const data = res.data as VehicleData[];
       if (this.licensePlate !== this.licensePlate.replace(/-/g, '').toUpperCase()) {
@@ -45,7 +44,7 @@ export default class LicensePlateInput extends Vue {
       }
       this.brand = data[0].merk;
       this.manufacturingYear = data[0].datum_eerste_toelating;
-      this.$emit('brandAndYear', this.brand, this.manufacturingYear);
+      this.$emit('brandAndYear', `brand=${this.brand}`, `year=${this.manufacturingYear}`);
       this.errorMessage = '';
     } catch (error) {
       this.errorMessage = 'An error occurred while retrieving the information.';

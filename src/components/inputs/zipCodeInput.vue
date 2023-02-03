@@ -17,7 +17,7 @@ export default class ZipCodeInput extends Vue {
   zip(event: any): void {
     if (/^\d+$/.test(this.zipCode)) {
       this.zipCodeValidator = 'zip code is valid';
-      this.$emit('zipCode', this.zipCode);
+      this.$emit('zipCode', `zipcode=${this.zipCode}`);
     } else {
       this.zipCodeValidator = ' zip code is Invalid';
     }

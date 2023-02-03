@@ -1,8 +1,8 @@
 <template>
   <div>
-    <label for="zipcode">Enter your house number</label>
-    <input id="zipcode" @change="zip" maxlength="6" type="text" v-model="houseNumber">
-    <div v-if="zipCode.length === 6">{{this.zipCodeValidator}}</div>
+    <label for="houseNumber">Enter your house number</label>
+    <input id="houseNumber" @change="houseNumberValidate" type="text" v-model="houseNumber">
+    <div>{{this.houseValidator}}</div>
   </div>
 </template>
 
@@ -12,12 +12,14 @@ import { Vue } from 'vue-class-component';
 export default class HouseNumberInput extends Vue {
   houseNumber = ''
 
-  zip(event: any): void {
-    if (/^\d+$/.test(this.zipCode)) {
-      this.zipCodeValidator = 'zip code is valid';
-      this.$emit('zipCode', this.zipCode);
+  houseValidator =''
+
+  houseNumberValidate(event: any): void {
+    if (/^\d+$/.test(this.houseNumber)) {
+      this.houseValidator = 'zip code is valid';
+      this.$emit('houseNumber', `housenumber=${this.houseNumber}`);
     } else {
-      this.zipCodeValidator = ' zip code is Invalid';
+      this.houseValidator = ' house number is Invalid';
     }
   }
 }

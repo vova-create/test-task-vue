@@ -6,6 +6,7 @@
 
           <license-plate-input @brandAndYear="getCarInfo"/>
           <zip-code-input @zip-code="getCarInfo"/>
+          <house-number-input @house-number="getCarInfo"/>
 
         <!-- LicensePlate -->
 
@@ -31,12 +32,14 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import LicensePlateInput from '@/components/inputs/licensePlateInput.vue';
-import SimpleCard from './simpleCard.vue';
 import ZipCodeInput from '@/components/inputs/zipCodeInput.vue';
+import HouseNumberInput from '@/components/inputs/houseNumberInput.vue';
+import SimpleCard from './simpleCard.vue';
 
 
 @Options({
   components: {
+    HouseNumberInput,
     ZipCodeInput,
     SimpleCard,
     LicensePlateInput,
