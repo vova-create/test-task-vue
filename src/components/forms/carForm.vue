@@ -8,6 +8,7 @@
           <house-number-input @house-number="getCarInfo"/>
          <house-number-addition-input @house-additional="getCarInfo"/>
         <birthday-input @selected-free-year="getCarInfo" @birthday="getCarInfo"/>
+        <kilometrage-input/>
        <!-- LicensePlate -->
 
         <!-- Zipcode -->
@@ -37,10 +38,12 @@ import HouseNumberInput from '@/components/inputs/houseNumberInput.vue';
 import BirthdayInput from '@/components/inputs/birthdayInput.vue';
 import SimpleCard from './simpleCard.vue';
 import HouseNumberAdditionInput from '@/components/inputs/houseNumberAdditionInput.vue';
+import KilometrageInput from '@/components/inputs/kilometrageInput.vue';
 
 
 @Options({
   components: {
+    KilometrageInput,
     HouseNumberAdditionInput,
     BirthdayInput,
     HouseNumberInput,
