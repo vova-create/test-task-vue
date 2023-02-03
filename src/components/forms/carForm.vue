@@ -3,11 +3,11 @@
     <template #title>Autoverzekering vergelijken</template>
 
     <template #content>
-
           <license-plate-input @brandAndYear="getCarInfo"/>
           <zip-code-input @zip-code="getCarInfo"/>
           <house-number-input @house-number="getCarInfo"/>
-          <birthday-input @selected-free-year="getCarInfo" @birthday="getCarInfo"/>
+         <house-number-addition-input @house-additional="getCarInfo"/>
+        <birthday-input @selected-free-year="getCarInfo" @birthday="getCarInfo"/>
        <!-- LicensePlate -->
 
         <!-- Zipcode -->
@@ -36,10 +36,12 @@ import ZipCodeInput from '@/components/inputs/zipCodeInput.vue';
 import HouseNumberInput from '@/components/inputs/houseNumberInput.vue';
 import BirthdayInput from '@/components/inputs/birthdayInput.vue';
 import SimpleCard from './simpleCard.vue';
+import HouseNumberAdditionInput from '@/components/inputs/houseNumberAdditionInput.vue';
 
 
 @Options({
   components: {
+    HouseNumberAdditionInput,
     BirthdayInput,
     HouseNumberInput,
     ZipCodeInput,
