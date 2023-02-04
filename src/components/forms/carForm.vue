@@ -1,6 +1,6 @@
 <template>
   <simple-card class="vd-form">
-    <template #title>Autoverzekering vergelijken</template>
+    <template #title>Compare car insurance</template>
 
     <template #content>
           <license-plate-input @brandAndYear="onInputChange"/>
@@ -10,9 +10,9 @@
         <birthday-input @selected-free-year="onInputChange" @birthday="onInputChange"/>
         <kilometrage-input @kilometrage="onInputChange"/>
         <div class="btn" @click="onSubmit">
-            Vergelijken
+          Compare
         </div>
-      <div v-if="errorText">{{this.errorText}}</div>
+      <div style="color: #ff1500" v-if="errorText">{{this.errorText}}</div>
     </template>
   </simple-card>
 </template>
@@ -49,7 +49,12 @@ export default class CarForm extends Vue {
   errorText = ''
 
   onSubmit(): void {
+    if (Object.entries(this.formData).length !== 8) {
+      this.errorText = 'You need to fill all the inputs';
+      return;
+    }
     const urlParams = Object.entries(this.formData).map(([key, value]) => `${key}=${value}`).join('&');
+    console.log(urlParams);
     axios.post(`https://en.wikipedia.org/wiki/${urlParams}`)
       .then((response) => {
         alert(response.data);
@@ -67,10 +72,10 @@ export default class CarForm extends Vue {
 
 <style scoped>
     .vd-form {
-        width: 330px;
+        max-width: 330px;
     }
 
-    @media only screen and (max-width: 768px) {
+    @media only screen and (min-width: 320px) {
         .vd-form {
             width: 100%;
         }
@@ -90,4 +95,5 @@ export default class CarForm extends Vue {
     .btn:hover {
         background: #0ed642;
     }
+
 </style>

@@ -20,7 +20,7 @@ export default class SimpleCard extends Vue {}
         box-shadow: 0 5px 40px rgb(112 144 176 / 20%);
         border-radius: 10px;
         position: relative;
-        padding: 20px;
+        padding: 50px 50px;
         transition: .1s ease;
         box-sizing: border-box;
     }

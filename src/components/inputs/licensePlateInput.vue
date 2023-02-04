@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div class="licence-plate">
     <form @submit.prevent="submit">
-      <label for="licencePlate">Enter your licence Plate</label>
-      <input id="licencePlate" v-model="licensePlate" type="text" />
-      <button type="submit">get vehicle  information from the license plate</button>
+      <label class="licence-plate__label" for="licencePlate">Enter your licence Plate</label>
+      <input :class="{'licence-plate__input-error':errorMessage, 'licence-plate__input-accept': brand && manufacturingYear}" id="licencePlate" v-model="licensePlate" type="text" />
+      <button class="licence-plate__btn" type="submit">get vehicle  information from the license plate</button>
     </form>
-    <p v-if="errorMessage">{{ errorMessage }}</p>
-    <p v-if="brand && manufacturingYear">
+    <p  class="licence-plate__error-text" v-if="errorMessage">{{ errorMessage }}</p>
+    <p class="licence-plate__licence-info" v-if="brand && manufacturingYear">
       Brand: {{ brand }}<br />
       Manufacturing Year: {{ manufacturingYear }}
     </p>
@@ -48,6 +48,8 @@ export default class LicensePlateInput extends Vue {
 
       this.errorMessage = '';
     } catch (error) {
+      this.manufacturingYear = '';
+      this.errorMessage = '';
       this.errorMessage = 'An error occurred while retrieving the information.';
     }
   }
@@ -55,5 +57,32 @@ export default class LicensePlateInput extends Vue {
 </script>
 
 <style scoped>
+
+.licence-plate__btn {
+  padding: 6px 12px;
+  border: 1px solid #008000FF;
+  border-radius: 5px;
+  background-color: #008000FF;
+  color: #FFFFFFFF;
+  font-size: 12px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.licence-plate__licence-info {
+  background-color: #A0EF7CFF;
+}
+.licence-plate__error-text {
+  font-size: 12px;
+  color: #ff1500;
+}
+
+.licence-plate__input-error{
+  border: 2px solid #ff1500;
+}
+
+.licence-plate__input-accept{
+  border: 2px solid #008000FF;
+}
 
 </style>
