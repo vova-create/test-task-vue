@@ -3,29 +3,16 @@
     <template #title>Autoverzekering vergelijken</template>
 
     <template #content>
-          <license-plate-input @brandAndYear="getCarInfo"/>
-          <zip-code-input @zip-code="getCarInfo"/>
-          <house-number-input @house-number="getCarInfo"/>
-         <house-number-addition-input @house-additional="getCarInfo"/>
-        <birthday-input @selected-free-year="getCarInfo" @birthday="getCarInfo"/>
-        <kilometrage-input/>
-       <!-- LicensePlate -->
-
-        <!-- Zipcode -->
-
-        <!-- Housenumber -->
-
-        <!-- Housenumber addition -->
-
-        <!-- birthdate -->
-
-        <!-- ClaimFree years -->
-
-        <!-- Kilometrage -->
-
+          <license-plate-input @brandAndYear="onInputChange"/>
+          <zip-code-input @zip-code="onInputChange"/>
+          <house-number-input @house-number="onInputChange"/>
+         <house-number-addition-input @house-additional="onInputChange"/>
+        <birthday-input @selected-free-year="onInputChange" @birthday="onInputChange"/>
+        <kilometrage-input @kilometrage="onInputChange"/>
         <div class="btn" @click="onSubmit">
             Vergelijken
         </div>
+      <div v-if="errorText">{{this.errorText}}</div>
     </template>
   </simple-card>
 </template>
@@ -36,10 +23,10 @@ import LicensePlateInput from '@/components/inputs/licensePlateInput.vue';
 import ZipCodeInput from '@/components/inputs/zipCodeInput.vue';
 import HouseNumberInput from '@/components/inputs/houseNumberInput.vue';
 import BirthdayInput from '@/components/inputs/birthdayInput.vue';
-import SimpleCard from './simpleCard.vue';
 import HouseNumberAdditionInput from '@/components/inputs/houseNumberAdditionInput.vue';
 import KilometrageInput from '@/components/inputs/kilometrageInput.vue';
-
+import axios from 'axios';
+import SimpleCard from './simpleCard.vue';
 
 @Options({
   components: {
@@ -55,14 +42,25 @@ import KilometrageInput from '@/components/inputs/kilometrageInput.vue';
 export default class CarForm extends Vue {
   formArray = [] as string[]
 
-  onSubmit(): void {
-    console.log('Button is clicked');
+  formData = {
+
   }
 
-  getCarInfo(...args: string[]): void {
-    this.formArray = this.formArray.concat(args);
-    const some = this.formArray.join('&');
-    console.log(some);
+  errorText = ''
+
+  onSubmit(): void {
+    const urlParams = Object.entries(this.formData).map(([key, value]) => `${key}=${value}`).join('&');
+    axios.post(`https://en.wikipedia.org/wiki/${urlParams}`)
+      .then((response) => {
+        alert(response.data);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }
+
+  onInputChange(data: {[key:string]:string}) {
+    this.formData = { ...this.formData, ...data };
   }
 }
 </script>

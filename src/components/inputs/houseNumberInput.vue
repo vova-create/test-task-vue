@@ -1,7 +1,7 @@
 <template>
   <div>
     <label for="houseNumber">Enter your house number</label>
-    <input id="houseNumber" @change="houseNumberValidate" type="text" v-model="houseNumber">
+    <input id="houseNumber" @change="houseNumberValidate" type="number" v-model="houseNumber">
     <div>{{this.houseValidator}}</div>
   </div>
 </template>
@@ -15,12 +15,8 @@ export default class HouseNumberInput extends Vue {
   houseValidator =''
 
   houseNumberValidate(event: any): void {
-    if (/^\d+$/.test(this.houseNumber)) {
-      this.houseValidator = 'zip code is valid';
-      this.$emit('houseNumber', `housenumber=${this.houseNumber}`);
-    } else {
-      this.houseValidator = ' house number is Invalid';
-    }
+    this.houseValidator = 'houseNumber is valid';
+    this.$emit('houseNumber', { housenumber: this.houseNumber });
   }
 }
 </script>

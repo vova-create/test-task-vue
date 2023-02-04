@@ -44,7 +44,8 @@ export default class LicensePlateInput extends Vue {
       }
       this.brand = data[0].merk;
       this.manufacturingYear = data[0].datum_eerste_toelating;
-      this.$emit('brandAndYear', `brand=${this.brand}`, `year=${this.manufacturingYear}`);
+      this.$emit('brandAndYear', { brand: this.brand, manufacturingyear: this.manufacturingYear });
+
       this.errorMessage = '';
     } catch (error) {
       this.errorMessage = 'An error occurred while retrieving the information.';

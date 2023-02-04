@@ -21,7 +21,7 @@ export default class HouseNumberAdditionInput extends Vue {
   houseNumberAdditionalValidate(event: any): void {
     if (/^[a-zA-Z0-9]+$/.test(this.houseNumberAdditional)) {
       this.houseValidatorAdditional = 'zip code is valid';
-      this.$emit('houseAdditional', `houseadditional=${this.houseNumberAdditional}`);
+      this.$emit('houseAdditional', { houseadditional: this.houseNumberAdditional });
     } else {
       this.houseValidatorAdditional = 'Additional house number is Invalid';
     }

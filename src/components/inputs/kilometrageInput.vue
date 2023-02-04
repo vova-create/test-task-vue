@@ -13,7 +13,7 @@
 import { Vue } from 'vue-class-component';
 
 export default class KilometrageInput extends Vue {
-  kilometrageSelected = ''
+  kilometrageSelected = '7501 t/m 10000 KM'
   kilometrageOption = [
     '0 t/m 7500 KM',
     '7501 t/m 10000 KM',
@@ -25,9 +25,9 @@ export default class KilometrageInput extends Vue {
     '30001 t/m 90000 KM',
   ] as any
 
-  houseValidatorAdditional =''
 
   kilometrageToSelect(event: any): void {
+    this.$emit('kilometrage', { kilometrage: this.kilometrageSelected });
     console.log(this.kilometrageSelected);
   }
 }

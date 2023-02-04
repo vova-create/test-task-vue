@@ -32,10 +32,6 @@ export default class BirthdayInput extends Vue {
   options = [] as number[]
 
   birthdayValidate(event: any): void {
-    if (this.selectedOption) {
-      this.$emit('selectedFreeYear', `freeyear=${this.selectedOption}`);
-      return;
-    }
     const currentYear = new Date().getFullYear();
     const chosenYear = new Date(this.birthday).getFullYear();
     const userAge = (chosenYear - currentYear) * -1;
@@ -43,7 +39,9 @@ export default class BirthdayInput extends Vue {
       this.birthdayValidator = 'You  can not be more then 100 years old';
     } else {
       this.birthdayValidator = '';
-      this.$emit('birthday', `birthday=${this.birthday}`);
+      // this.$emit('birthday', `birthday=${this.birthday}`);
+      this.$emit('birthday', { birthday: this.birthday });
+      console.log(this.birthday);
     }
     const maxYears = userAge - 18;
     if (maxYears < -5) {
@@ -53,6 +51,7 @@ export default class BirthdayInput extends Vue {
         this.options.push(i);
       }
     }
+    this.$emit('selectedFreeYear', { freeyear: this.selectedOption });
   }
 }
 </script>
