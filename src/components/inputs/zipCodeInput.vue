@@ -1,7 +1,12 @@
 <template>
 <div class="zipcode">
   <label for="zipcode">Enter your zip code</label>
-  <input  :class="{'zipcode__input-error':zipCodeValidatorInvalid, 'zipcode__input-accept':zipCodeValidatorValid }" id="zipcode" @change="zipCodeValidate" maxlength="6" type="text" v-model="zipCode">
+  <input
+    :class="{'zipcode__input-error':zipCodeValidatorInvalid, 'zipcode__input-accept':zipCodeValidatorValid }"
+    id="zipcode" @change="zipCodeValidate"
+    maxlength="6"
+    type="text"
+    v-model="zipCode">
   <div class="zipcode__error-text">{{zipCodeValidatorInvalid }}</div>
 </div>
 </template>
@@ -24,7 +29,6 @@ export default class ZipCodeInput extends Vue {
     } else {
       this.zipCodeValidatorInvalid = ' zip code is invalid';
       this.zipCodeValidatorValid = false;
-
     }
   }
 }

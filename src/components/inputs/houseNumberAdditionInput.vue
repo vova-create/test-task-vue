@@ -17,7 +17,7 @@ import { Vue } from 'vue-class-component';
 export default class HouseNumberAdditionInput extends Vue {
   houseNumberAdditional = ''
 
-  houseNumberAdditionalValidate(event: any): void {
+  houseNumberAdditionalValidate(): void {
     if (/^[a-zA-Z0-9]+$/.test(this.houseNumberAdditional)) {
       this.$emit('houseAdditional', { houseadditional: this.houseNumberAdditional });
     }

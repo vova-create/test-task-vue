@@ -1,4 +1,5 @@
 <template>
+  <label for="freeYears">Enter your kilometrage</label>
   <select @change="kilometrageToSelect" id="freeYears" v-model="kilometrageSelected">
     <option
       v-for="option in kilometrageOption "
@@ -14,6 +15,7 @@ import { Vue } from 'vue-class-component';
 
 export default class KilometrageInput extends Vue {
   kilometrageSelected = '7501 t/m 10000 KM'
+
   kilometrageOption = [
     '0 t/m 7500 KM',
     '7501 t/m 10000 KM',
@@ -24,7 +26,6 @@ export default class KilometrageInput extends Vue {
     '25001 t/m 30000 KM',
     '30001 t/m 90000 KM',
   ] as any
-
 
   kilometrageToSelect(event: any): void {
     this.$emit('kilometrage', { kilometrage: this.kilometrageSelected });
