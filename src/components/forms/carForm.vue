@@ -1,55 +1,81 @@
 <template>
   <simple-card class="vd-form">
-    <template #title>Autoverzekering vergelijken</template>
+    <template #title>Compare car insurance</template>
 
     <template #content>
-        <p>
-            Replace me for input fields
-        </p>
-
-        <!-- LicensePlate -->
-
-        <!-- Zipcode -->
-
-        <!-- Housenumber -->
-
-        <!-- Housenumber addition -->
-
-        <!-- birthdate -->
-
-        <!-- ClaimFree years -->
-
-        <!-- Kilometrage -->
-
+          <license-plate-input @brandAndYear="onInputChange"/>
+          <zip-code-input @zip-code="onInputChange"/>
+          <house-number-input @house-number="onInputChange"/>
+         <house-number-addition-input @house-additional="onInputChange"/>
+        <birthday-input @selected-free-year="onInputChange" @birthday="onInputChange"/>
+        <kilometrage-input @kilometrage="onInputChange"/>
         <div class="btn" @click="onSubmit">
-            Vergelijken
+          Compare
         </div>
+      <div style="color: #ff1500" v-if="errorText">{{this.errorText}}</div>
     </template>
   </simple-card>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
+import LicensePlateInput from '@/components/inputs/licensePlateInput.vue';
+import ZipCodeInput from '@/components/inputs/zipCodeInput.vue';
+import HouseNumberInput from '@/components/inputs/houseNumberInput.vue';
+import BirthdayInput from '@/components/inputs/birthdayInput.vue';
+import HouseNumberAdditionInput from '@/components/inputs/houseNumberAdditionInput.vue';
+import KilometrageInput from '@/components/inputs/kilometrageInput.vue';
+import axios from 'axios';
 import SimpleCard from './simpleCard.vue';
 
 @Options({
   components: {
+    KilometrageInput,
+    HouseNumberAdditionInput,
+    BirthdayInput,
+    HouseNumberInput,
+    ZipCodeInput,
     SimpleCard,
+    LicensePlateInput,
   },
 })
 export default class CarForm extends Vue {
+  formArray = [] as string[]
+
+  formData = {
+
+  }
+
+  errorText = ''
+
   onSubmit(): void {
-    console.log('Button is clicked');
+    if (Object.entries(this.formData).length !== 8) {
+      this.errorText = 'You need to fill all the inputs';
+      return;
+    }
+    const urlParams = Object.entries(this.formData).map(([key, value]) => `${key}=${value}`).join('&');
+    console.log(urlParams);
+    axios.post(`https://en.wikipedia.org/wiki/${urlParams}`)
+      .then((response) => {
+        alert(response.data);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }
+
+  onInputChange(data: {[key:string]:string}) {
+    this.formData = { ...this.formData, ...data };
   }
 }
 </script>
 
 <style scoped>
     .vd-form {
-        width: 330px;
+        max-width: 330px;
     }
 
-    @media only screen and (max-width: 768px) {
+    @media only screen and (min-width: 320px) {
         .vd-form {
             width: 100%;
         }
@@ -69,4 +95,5 @@ export default class CarForm extends Vue {
     .btn:hover {
         background: #0ed642;
     }
+
 </style>
